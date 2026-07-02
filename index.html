@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Léo César | Professor de Futevôlei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET / BASE ===== */
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#0a0908;color:#e6e0d4;font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:#d4af37;color:#0a0908}
+  section{scroll-margin-top:88px}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  .icon{display:inline-flex;align-items:center;justify-content:center}
+  .icon svg{display:block;width:100%;height:100%}
+
+  /* ===== KEYFRAMES ===== */
+  @keyframes goldPulse{0%,100%{box-shadow:0 0 0 1px rgba(212,175,55,.55),0 10px 34px -8px rgba(212,175,55,.5)}50%{box-shadow:0 0 0 1px rgba(232,200,121,.8),0 14px 44px -8px rgba(212,175,55,.7)}}
+  @keyframes waGlow{0%,100%{box-shadow:0 0 0 1px rgba(212,175,55,.4),0 0 8px 0 rgba(201,161,59,.22)}50%{box-shadow:0 0 0 1px rgba(232,200,121,.7),0 0 16px 2px rgba(201,161,59,.5)}}
+
+  /* ===== HELPERS ===== */
+  .wrap{max-width:1240px;margin:0 auto}
+  .gold-text{background:linear-gradient(135deg,#f6ecbf,#c9a13b 55%,#8a6a22);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#c9a84c}
+  .eyebrow-line{width:52px;height:3px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,.2));flex:none}
+
+  /* Hexagon badge */
+  .hex{position:relative;display:grid;place-items:center;flex:none}
+  .hex .hex-bg,.hex .hex-in{position:absolute;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+  .hex .hex-bg{inset:0;background:#c9a84c}
+  .hex .hex-in{inset:1.6px;background:#0a0908}
+  .hex .icon{position:relative;color:#e8c879}
+
+  /* CTA buttons */
+  .cta{display:inline-flex;align-items:center;gap:11px;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;color:#0a0908;text-decoration:none;border-radius:8px;background:linear-gradient(135deg,#f6ecbf,#e9cd7a 35%,#c9a13b 70%,#a8851f);animation:goldPulse 3.4s ease-in-out infinite;transition:transform .22s}
+  .cta:hover{transform:translateY(-3px)}
+  .cta-primary{font-size:15px;letter-spacing:1.2px;padding:17px 30px;box-shadow:0 0 0 1px rgba(212,175,55,.55),0 12px 36px -10px rgba(212,175,55,.6)}
+  .cta-big{gap:13px;font-size:18px;letter-spacing:1.4px;padding:21px 40px;box-shadow:0 0 0 1px rgba(212,175,55,.6),0 16px 50px -10px rgba(212,175,55,.7)}
+  .cta-primary .icon{width:20px;height:20px}
+  .cta-big .icon{width:24px;height:24px}
+  .cta-note{font-family:'Barlow',sans-serif;font-size:14px;color:#6b6b6b;margin-top:14px}
+
+  /* ===== HEADER ===== */
+  .site-header{position:fixed;top:0;left:0;width:100%;z-index:50;background:transparent;transition:background .35s,box-shadow .35s}
+  .site-header.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px -16px rgba(0,0,0,.8)}
+  .header-inner{max-width:1240px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .header-logo img{height:48px;width:auto}
+  .head-line{position:absolute;left:0;bottom:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,161,59,.65) 18%,rgba(232,200,121,.95) 50%,rgba(201,161,59,.65) 82%,transparent);opacity:0;transition:opacity .35s;pointer-events:none}
+  .site-header.scrolled .head-line{opacity:1}
+  .desktop-nav{display:flex;align-items:center;gap:34px}
+  .nav-link{font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#e6e0d4;text-decoration:none;transition:color .2s}
+  .nav-link:hover{color:#e8c879}
+  .wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font-family:'Oswald',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#0a0908;text-decoration:none;padding:0 20px;border-radius:8px;background:linear-gradient(135deg,#e9cd7a,#c9a13b);animation:waGlow 2s ease-in-out infinite;transition:transform .2s;white-space:nowrap}
+  .wa-btn:hover{transform:translateY(-2px)}
+  .wa-btn .icon{width:16px;height:16px}
+  .mobile-controls{display:none;align-items:center;gap:12px}
+  .hamburger{display:grid;place-items:center;width:44px;height:44px;flex:none;padding:0;background:rgba(201,161,59,.08);border:1px solid rgba(201,161,59,.4);border-radius:8px;cursor:pointer;color:#e8c879}
+  .hamburger .icon{width:24px;height:24px}
+
+  /* ===== MOBILE MENU ===== */
+  .mobile-menu{display:none;position:fixed;inset:0;z-index:60;background:rgba(8,7,6,.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);flex-direction:column;padding:24px}
+  .mobile-menu.open{display:flex}
+  .mobile-menu .glow{position:absolute;inset:0;background:radial-gradient(80% 60% at 80% 0%,rgba(201,161,59,.14),transparent 60%);pointer-events:none}
+  .mm-top{position:relative;display:flex;align-items:center;justify-content:space-between;height:52px}
+  .mm-top img{height:46px;width:auto}
+  .mm-nav{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px}
+  .mm-link{display:flex;align-items:center;gap:18px;font-family:'Oswald',sans-serif;font-weight:700;font-size:38px;letter-spacing:.5px;text-transform:uppercase;color:#e6e0d4;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(201,161,59,.14);transition:color .2s}
+  .mm-link:hover{color:#e8c879}
+  .mm-link span{width:24px;height:2px;background:linear-gradient(90deg,#c9a13b,transparent);flex:none}
+  .mm-cta{position:relative;display:flex;align-items:center;justify-content:center;gap:11px;font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:#0a0908;text-decoration:none;padding:18px 30px;border-radius:8px;background:linear-gradient(135deg,#f6ecbf,#e9cd7a 35%,#c9a13b 70%,#a8851f);box-shadow:0 0 0 1px rgba(212,175,55,.55),0 12px 36px -10px rgba(212,175,55,.6)}
+  .mm-cta .icon{width:20px;height:20px}
+
+  /* ===== HERO (FULLBLEED) ===== */
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 56px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;background-image:url('images/leo-hero.jpeg');background-size:cover;background-position:center center;background-repeat:no-repeat}
+  .hero-overlay{position:absolute;inset:0;z-index:0;background:linear-gradient(to right,rgba(10,10,10,.95) 0%,rgba(10,10,10,.85) 40%,rgba(10,10,10,.3) 70%,rgba(10,10,10,0) 100%)}
+  .hero-inner{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 40px;width:100%}
+  .hero-copy{max-width:640px}
+  .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+  .hero-eyebrow span:first-child{width:34px;height:2px;background:linear-gradient(90deg,#c9a13b,transparent)}
+  .hero h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(52px,6.6vw,100px);line-height:1.16;letter-spacing:.5px;text-transform:uppercase;color:#e6e0d4;margin-bottom:24px}
+  .hero-lead{font-family:'Barlow',sans-serif;font-size:20px;line-height:1.5;color:#e6e0d4;max-width:520px;margin-bottom:36px}
+
+  /* ===== FEATURES STRIP ===== */
+  .features{border-top:1px solid rgba(201,161,59,.18);border-bottom:1px solid rgba(201,161,59,.18);background:#0a0a0a}
+  .features-inner{max-width:1240px;margin:0 auto;padding:34px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+  .feature{display:flex;align-items:center;gap:16px;justify-content:center;min-height:62px}
+  .feature .hex{width:56px;height:62px;transition:filter .3s,transform .3s}
+  .feature .hex .icon{width:24px;height:24px}
+  .feature .hex:hover{transform:translateY(-2px)}
+  .feature-label{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#e6e0d4}
+
+  /* ===== SOBRE ===== */
+  .sobre{background:#0f0f0f;border-top:1px solid rgba(201,161,59,.1);border-bottom:1px solid rgba(201,161,59,.1)}
+  .sobre-inner{max-width:1240px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:stretch}
+  .sobre-photo{position:relative;display:flex;flex-direction:row;gap:22px}
+  .sobre-line{width:3px;background:#c9a84c;flex:none;align-self:stretch}
+  .sobre-img{position:relative;flex:1;height:100%;min-height:440px;align-self:stretch;border-radius:3px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.9),0 0 0 1px rgba(201,161,59,.22)}
+  .sobre-img img{width:100%;height:100%;object-fit:cover;object-position:center top}
+  .sobre-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+  .sobre h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(32px,3.6vw,52px);line-height:1.16;text-transform:uppercase;color:#e6e0d4;margin-bottom:28px;text-wrap:balance}
+  .sobre p{font-family:'Barlow',sans-serif;font-size:17px;line-height:1.65;color:#a0a0a0;margin-bottom:20px}
+  .sobre .quote{display:inline-flex;align-items:center;gap:14px;padding:16px 24px;border-left:2px solid #c9a13b;background:linear-gradient(90deg,rgba(201,161,59,.1),transparent);margin-top:14px;flex-wrap:wrap}
+  .sobre .quote b{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#e8c879}
+  .sobre .quote em{font-family:'Barlow',sans-serif;font-size:16px;font-style:normal;color:#a0a0a0}
+
+  /* ===== SECTION HEADING (centered) ===== */
+  .sec-head{text-align:center;margin-bottom:56px}
+  .sec-eyebrow{display:inline-flex;align-items:center;gap:16px;margin-bottom:16px}
+  .sec-head h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(34px,4vw,58px);text-transform:uppercase;color:#e6e0d4}
+
+  /* ===== SERVIÇOS ===== */
+  .servicos{background:#0a0a0a;border-top:1px solid rgba(201,161,59,.12);border-bottom:1px solid rgba(201,161,59,.12)}
+  .servicos-inner{max-width:1240px;margin:0 auto;padding:80px 40px}
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .service-card{position:relative;padding:34px 26px;background:#1a1a1a;border:1px solid rgba(201,168,76,.4);border-radius:3px;transition:transform .25s,border-color .25s,box-shadow .25s}
+  .service-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,1);box-shadow:0 0 15px rgba(201,168,76,.2)}
+  .service-card .hex{width:60px;height:66px;margin-bottom:24px}
+  .service-card .hex .hex-in{background:#1a1a1a}
+  .service-card .hex .icon{width:26px;height:26px}
+  .service-card h3{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#c9a84c;margin-bottom:14px;line-height:1.1}
+  .service-card p{font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;color:#a0a0a0}
+  .servicos-cta{text-align:center;margin-top:50px}
+
+  /* ===== DIFERENCIAIS ===== */
+  .diferenciais{background:#111;border-top:1px solid rgba(201,161,59,.1);border-bottom:1px solid rgba(201,161,59,.1)}
+  .dif-inner{max-width:1240px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+  .dif-left h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(36px,4.4vw,64px);line-height:1.12;text-transform:uppercase;color:#e6e0d4}
+  .dif-left .eyebrow-wrap{display:inline-flex;align-items:center;gap:16px;margin-bottom:14px}
+  .dif-left p{font-family:'Barlow',sans-serif;font-size:19px;line-height:1.6;color:#a0a0a0;margin-top:24px;max-width:380px}
+  .dif-list{display:flex;flex-direction:column}
+  .diff-item{display:flex;align-items:center;gap:20px;padding:14px 24px;background:linear-gradient(90deg,rgba(201,161,59,.06),transparent);border-bottom:1px solid #2a2a2a;opacity:0;transform:translateX(30px);transition:opacity .5s ease-out,transform .5s ease-out,background .25s}
+  .diff-item.in{opacity:1;transform:translateX(0)}
+  .diff-item:nth-child(1){transition-delay:0ms}
+  .diff-item:nth-child(2){transition-delay:100ms}
+  .diff-item:nth-child(3){transition-delay:200ms}
+  .diff-item:nth-child(4){transition-delay:300ms}
+  .diff-item:nth-child(5){transition-delay:400ms}
+  .diff-item:hover{background:linear-gradient(90deg,rgba(201,161,59,.14),transparent)}
+  .diff-badge{width:54px;height:54px;flex:none;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(201,161,59,.4);background:rgba(201,161,59,.08);transition:filter .3s ease}
+  .diff-badge .icon{width:28px;height:28px;color:#e8c879}
+  .diff-item:hover .diff-badge{filter:drop-shadow(0 0 6px rgba(201,168,76,.7))}
+  .diff-item span.txt{font-family:'Barlow',sans-serif;font-size:18.5px;font-weight:500;line-height:1.4;color:#e6e0d4}
+
+  /* ===== CONQUISTAS ===== */
+  .conquistas{background:#0c0a08;border-top:1px solid rgba(201,161,59,.12);border-bottom:1px solid rgba(201,161,59,.12)}
+  .conq-inner{max-width:1240px;margin:0 auto;padding:80px 40px}
+  .conq-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+  .conq-card{display:flex;flex-direction:column;justify-content:flex-start;min-height:190px;text-align:center;padding:34px 12px;background:linear-gradient(180deg,#15120d,#100e0a);border:1px solid rgba(201,161,59,.18);border-radius:3px;opacity:0;transform:translateY(30px);transition:opacity .5s ease-out,transform .5s ease-out,border-color .3s ease,box-shadow .3s ease}
+  .conq-card.in{opacity:1;transform:translateY(0)}
+  .conq-card:nth-child(1){transition-delay:0ms}
+  .conq-card:nth-child(2){transition-delay:100ms}
+  .conq-card:nth-child(3){transition-delay:200ms}
+  .conq-card:nth-child(4){transition-delay:300ms}
+  .conq-card:nth-child(5){transition-delay:400ms}
+  .conq-card:hover{border-color:rgba(201,168,76,1);box-shadow:0 0 15px rgba(201,168,76,.2);transform:translateY(-4px)}
+  .conq-card .hex{width:58px;height:64px;margin:0 auto 20px}
+  .conq-card .hex .hex-in{background:#100e0a}
+  .conq-card .hex .icon{width:24px;height:24px}
+  .conq-card .txt{font-family:'Oswald',sans-serif;font-size:14px;font-weight:500;line-height:1.4;letter-spacing:.3px;color:#e6e0d4;display:block}
+
+  /* ===== GALERIA ===== */
+  .galeria{background:#0a0a0a;border-top:1px solid rgba(201,161,59,.12)}
+  .gal-head{max-width:1240px;margin:0 auto;padding:96px 40px 40px;display:flex;align-items:center;gap:18px}
+  .gal-head h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(34px,4.4vw,62px);letter-spacing:.5px;text-transform:uppercase;line-height:1;background:linear-gradient(135deg,#f6ecbf,#e9cd7a 30%,#c9a13b 65%,#8a6a22);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gal-head .line{flex:1;height:2px;background:linear-gradient(90deg,#c9a13b,transparent)}
+  .gal-stage{position:relative;width:100%;height:500px;overflow:hidden;background:#0a0a0a}
+  .gal-track{display:flex;height:100%;will-change:transform;transition:transform 600ms ease-in-out}
+  .gal-slide{flex:0 0 33.3333%;height:500px;padding:0 5px}
+  .gal-slide-inner{position:relative;width:100%;height:100%;overflow:hidden;background:#0a0a0a}
+  .gal-slide-inner img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+  .gal-dots{position:absolute;left:0;right:0;bottom:24px;display:flex;justify-content:center;gap:11px;z-index:2}
+  .gal-dot{position:relative;width:11px;height:11px;border-radius:50%;border:1px solid #c9a13b;background:transparent;padding:0;cursor:pointer;transition:transform .3s}
+  .gal-dot:hover{transform:scale(1.25)}
+  .gal-dot.active::after{content:"";position:absolute;inset:1px;border-radius:50%;background:linear-gradient(135deg,#e9cd7a,#c9a13b);box-shadow:0 0 10px 1px rgba(201,161,59,.7)}
+
+  /* ===== DEPOIMENTOS ===== */
+  .depoimentos{background:#0a0a0a;border-top:1px solid rgba(201,161,59,.1)}
+  .depo-inner{max-width:1240px;margin:0 auto;padding:80px 40px}
+  .depo-viewport{position:relative;overflow:hidden}
+  .depo-track{display:flex;will-change:transform;transition:transform 400ms ease-in-out}
+  .depo-cell{flex:0 0 33.3333%;padding:0 10px}
+  .depo-card{height:340px;padding:32px 28px;background:#1a1a1a;border:1px solid rgba(201,168,76,.3);border-radius:3px;display:flex;flex-direction:column;transition:border-color .3s ease,box-shadow .3s ease}
+  .depo-card:hover{border-color:rgba(201,168,76,1);box-shadow:0 0 15px rgba(201,168,76,.2)}
+  .depo-quote-mark{font-family:'Oswald',sans-serif;font-weight:700;font-size:56px;line-height:.6;color:#c9a84c;display:block;height:34px}
+  .depo-stars{display:flex;gap:3px;margin:6px 0 16px;color:#e8c879;font-size:15px;letter-spacing:2px}
+  .depo-card p{font-family:'Barlow',sans-serif;font-size:15px;line-height:1.65;color:#e6e0d4;font-style:italic;flex:1}
+  .depo-foot{margin-top:24px;padding-top:20px;border-top:1px solid rgba(201,161,59,.14)}
+  .depo-name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:.5px;color:#c9a84c}
+  .depo-age{font-family:'Barlow',sans-serif;font-size:13px;color:#6b6b6b;margin-top:2px}
+  .depo-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:38px}
+  .depo-arrow{width:48px;height:48px;flex:none;display:grid;place-items:center;border-radius:50%;background:#1a1a1a;border:1px solid rgba(201,168,76,.4);color:#e8c879;cursor:pointer;transition:background .25s,color .25s}
+  .depo-arrow:hover{background:linear-gradient(135deg,#e9cd7a,#c9a13b);color:#0a0908}
+  .depo-arrow .icon{width:24px;height:24px}
+  .depo-dots{display:flex;gap:10px;align-items:center}
+  .depo-dot{width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;background:#444;transition:background .25s,transform .25s}
+  .depo-dot.active{background:#c9a84c;transform:scale(1.3)}
+
+  /* ===== CTA FINAL ===== */
+  .cta-final{position:relative;overflow:hidden;background:#0c0a08;border-top:1px solid rgba(201,161,59,.18)}
+  .cta-final .glow{position:absolute;inset:0;background:radial-gradient(70% 120% at 50% 0%,rgba(201,161,59,.2),transparent 60%)}
+  .cta-final-inner{position:relative;max-width:900px;margin:0 auto;padding:120px 40px;text-align:center}
+  .cta-final h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(40px,5.4vw,80px);line-height:1.16;text-transform:uppercase;color:#e6e0d4;margin-bottom:22px}
+  .cta-final p{font-family:'Barlow',sans-serif;font-size:19px;line-height:1.5;color:#a0a0a0;margin-bottom:42px}
+
+  /* ===== FOOTER ===== */
+  .site-footer{background:#0a0a0a;border-top:1px solid rgba(201,161,59,.14)}
+  .footer-inner{max-width:1240px;margin:0 auto;padding:72px 40px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px}
+  .footer-inner h4{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#C9A84C;margin:0 0 18px}
+  .footer-addr{display:flex;align-items:flex-start;gap:11px}
+  .footer-addr .icon{width:18px;height:18px;color:#C9A84C;flex:none;margin-top:2px}
+  .footer-addr p{font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;color:#a0a0a0;margin:0}
+  .footer-addr p span{font-size:13px;color:#6b6b6b}
+  .footer-social{display:flex;flex-direction:column;gap:14px}
+  .footer-link{display:flex;align-items:center;gap:10px;font-family:'Barlow',sans-serif;font-size:15px;color:#C9A84C;text-decoration:none;transition:color .2s}
+  .footer-link:hover{color:#f0d98a}
+  .footer-link .icon{width:18px;height:18px;flex:none}
+  .footer-copy{border-top:1px solid rgba(201,161,59,.12)}
+  .footer-copy-inner{max-width:1240px;margin:0 auto;padding:26px 40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .footer-copy-inner img{height:38px;width:auto;flex:none}
+  .footer-copy-inner span{font-family:'Barlow',sans-serif;font-size:15px;color:#6b6b6b}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:859px){
+    .desktop-nav{display:none}
+    .mobile-controls{display:flex}
+    .hero-overlay{background:linear-gradient(to bottom,rgba(10,10,10,.9) 0%,rgba(10,10,10,.7) 50%,rgba(10,10,10,.3) 100%)}
+    .features-inner{grid-template-columns:repeat(2,1fr)}
+    .sobre-inner{grid-template-columns:1fr;gap:40px}
+    .sobre-photo{flex-direction:column}
+    .sobre-line{width:80px;height:3px;align-self:auto}
+    .sobre-img{min-height:380px}
+    .services-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    .servicos-cta .cta{display:flex;width:100%;justify-content:center}
+    .dif-inner{grid-template-columns:1fr;gap:36px}
+    .diff-item{transform:translateX(15px)}
+    .conq-grid{grid-template-columns:repeat(2,1fr)}
+    .depo-cell{flex:0 0 100%;padding:0 4px}
+  }
+  @media (max-width:520px){
+    .header-inner{padding:0 16px}
+    .hero-inner,.sobre-inner,.servicos-inner,.dif-inner,.conq-inner,.depo-inner{padding-left:22px;padding-right:22px}
+    .mm-link{font-size:30px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="header-logo"><img src="images/logo-sm.png" alt="Léo César Futevôlei"></a>
+
+    <nav class="desktop-nav">
+      <a href="#sobre" class="nav-link">Sobre</a>
+      <a href="#servicos" class="nav-link">Serviços</a>
+      <a href="#conquistas" class="nav-link">Conquistas</a>
+      <a href="#depoimentos" class="nav-link">Depoimentos</a>
+      <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="wa-btn"><span class="icon" data-icon="whatsapp"></span>Falar agora</a>
+    </nav>
+
+    <div class="mobile-controls">
+      <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="wa-btn"><span class="icon" data-icon="whatsapp"></span>Falar agora</a>
+      <button class="hamburger" data-menu-open aria-label="Abrir menu"><span class="icon" data-icon="menu"></span></button>
+    </div>
+  </div>
+  <div class="head-line"></div>
+</header>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu">
+  <div class="glow"></div>
+  <div class="mm-top">
+    <img src="images/logo-sm.png" alt="Léo César Futevôlei">
+    <button class="hamburger" data-menu-close aria-label="Fechar menu"><span class="icon" data-icon="x"></span></button>
+  </div>
+  <nav class="mm-nav">
+    <a href="#sobre" class="mm-link"><span></span>Sobre</a>
+    <a href="#servicos" class="mm-link"><span></span>Serviços</a>
+    <a href="#conquistas" class="mm-link"><span></span>Conquistas</a>
+    <a href="#depoimentos" class="mm-link"><span></span>Depoimentos</a>
+  </nav>
+  <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="mm-cta"><span class="icon" data-icon="whatsapp"></span>Chamar no WhatsApp</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="top" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">
+        <span></span>
+        <span class="eyebrow">Aulas · Turmas · Campeonatos</span>
+      </div>
+      <h1 style="white-space:nowrap">Do futebol profissional<br>para a <span class="gold-text">areia.</span></h1>
+      <p class="hero-lead">Aprenda futevôlei com quem vive o esporte de verdade — aulas, turmas e preparação para campeonatos com o Professor Léo César.</p>
+      <div>
+        <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="cta cta-primary"><span class="icon" data-icon="whatsapp"></span>Quero começar agora</a>
+        <p class="cta-note">Resposta rápida no WhatsApp</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<div class="features">
+  <div class="features-inner">
+    <div class="feature"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="calendar-days"></span></span><span class="feature-label">+5 anos de experiência</span></div>
+    <div class="feature"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="badge-check"></span></span><span class="feature-label">Certificado Riplay FTV 10K</span></div>
+    <div class="feature"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="globe"></span></span><span class="feature-label">Experiência Internacional</span></div>
+    <div class="feature"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="users"></span></span><span class="feature-label">+100 alunos treinados</span></div>
+  </div>
+</div>
+
+<!-- ===== SOBRE ===== -->
+<section id="sobre" class="sobre">
+  <div class="sobre-inner">
+    <div class="sobre-photo">
+      <div class="sobre-line"></div>
+      <div class="sobre-img"><img src="images/leo-portrait.jpeg" alt="Léo César"></div>
+    </div>
+    <div>
+      <div class="sobre-head">
+        <span class="eyebrow-line" style="width:52px;height:3px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,.2))"></span>
+        <span class="eyebrow">Quem é o Léo</span>
+      </div>
+      <h2>Mais de uma <span class="gold-text">década</span> vivendo o esporte. Agora, passando isso <span class="gold-text">pra você.</span></h2>
+      <p>Léo César construiu sua trajetória dentro do futebol profissional, onde o futevôlei já estava presente como ferramenta de treinamento regenerativo dos atletas. O que era lazer virou paixão — e a paixão virou profissão.</p>
+      <p>Deu suas primeiras aulas particulares em 2021, formou turmas e se tornou parceiro da Quati Beach Sport em 2024. Já competiu em torneios internacionais em Luxemburgo, é certificado pelo programa Riplay FTV 10K — maior referência em formação de professores do Brasil — e hoje coordena as quadras do BK Beach Club.</p>
+      <div class="quote">
+        <b>Na areia, é campeão.</b>
+        <em>Na beira da quadra, é professor.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVIÇOS ===== -->
+<section id="servicos" class="servicos">
+  <div class="servicos-inner">
+    <div class="sec-head">
+      <span class="sec-eyebrow"><span class="eyebrow-line"></span><span class="eyebrow">Serviços</span></span>
+      <h2>Escolha o <span class="gold-text">seu caminho</span> no futevôlei</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="user"></span></span><h3>Aulas Particulares</h3><p>Evolução acelerada com atenção 100% focada em você. Horários flexíveis e metodologia personalizada para o seu ritmo.</p></div>
+      <div class="service-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="users"></span></span><h3>Aulas em Grupo</h3><p>Aprenda em conjunto, treine mais, pague menos. Turmas com horários fixos e progressão garantida.</p></div>
+      <div class="service-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="trophy"></span></span><h3>Preparação p/ Campeonatos</h3><p>Você quer competir? O Léo prepara você. Técnica, tática e mentalidade de atleta para chegar forte na disputa.</p></div>
+      <div class="service-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="sprout"></span></span><h3>Turmas para Iniciantes</h3><p>Nunca tocou numa bola de futevôlei? Sem problema. Começamos do zero com didática leve e divertida.</p></div>
+    </div>
+    <div class="servicos-cta">
+      <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="cta cta-primary"><span class="icon" data-icon="whatsapp"></span>Fale com o Léo e encontre a melhor opção</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIFERENCIAIS ===== -->
+<section id="diferenciais" class="diferenciais">
+  <div class="dif-inner">
+    <div class="dif-left">
+      <span class="eyebrow-wrap"><span class="eyebrow-line"></span><span class="eyebrow">Diferenciais</span></span>
+      <h2>Por que treinar com <span class="gold-text">o Léo?</span></h2>
+      <p>Vivência real de competição traduzida em método para todos os níveis.</p>
+    </div>
+    <div class="dif-list">
+      <div class="diff-item"><span class="diff-badge"><span class="icon" data-icon="medal"></span></span><span class="txt">Atleta profissional com vivência real em competições</span></div>
+      <div class="diff-item"><span class="diff-badge"><span class="icon" data-icon="scroll-text"></span></span><span class="txt">Certificado Riplay FTV 10K — maior formação de professores do Brasil</span></div>
+      <div class="diff-item"><span class="diff-badge"><span class="icon" data-icon="globe"></span></span><span class="txt">Experiência internacional — competidor em torneios em Luxemburgo</span></div>
+      <div class="diff-item"><span class="diff-badge"><span class="icon" data-icon="users"></span></span><span class="txt">Metodologia para todos os níveis — do iniciante ao competidor</span></div>
+      <div class="diff-item"><span class="diff-badge"><span class="icon" data-icon="map-pin"></span></span><span class="txt">Aulas no BK Beach Club</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONQUISTAS ===== -->
+<section id="conquistas" class="conquistas">
+  <div class="conq-inner">
+    <div class="sec-head">
+      <span class="sec-eyebrow"><span class="eyebrow-line"></span><span class="eyebrow">Conquistas</span></span>
+      <h2>Quem te ensina, <span class="gold-text">também compete</span></h2>
+    </div>
+    <div class="conq-grid">
+      <div class="conq-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="medal"></span></span><span class="txt">1º Lugar — Quati Beach Sport</span></div>
+      <div class="conq-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="trophy"></span></span><span class="txt">Pódio — The Beach Tournament</span></div>
+      <div class="conq-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="globe"></span></span><span class="txt">Torneio Internacional — Luxemburgo</span></div>
+      <div class="conq-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="scroll-text"></span></span><span class="txt">Certificado Riplay FTV 10K</span></div>
+      <div class="conq-card"><span class="hex"><span class="hex-bg"></span><span class="hex-in"></span><span class="icon" data-icon="map-pin"></span></span><span class="txt">Coordenador de Quadras — BK Beach Club</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALERIA ===== -->
+<section class="galeria">
+  <div class="gal-head">
+    <h2>Na areia e no pódio</h2>
+    <span class="line"></span>
+  </div>
+  <div class="gal-stage">
+    <div class="gal-track">
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-3.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-1.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-2.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-5.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-4.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-6.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-7.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-8.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-9.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-10.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-11.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-12.png" alt=""></div></div>
+    </div>
+    <div class="gal-dots"></div>
+  </div>
+</section>
+
+<!-- ===== DEPOIMENTOS ===== -->
+<section id="depoimentos" class="depoimentos">
+  <div class="depo-inner">
+    <div class="sec-head">
+      <span class="sec-eyebrow"><span class="eyebrow-line"></span><span class="eyebrow">Depoimentos</span></span>
+      <h2>O que dizem <span class="gold-text">os alunos</span></h2>
+    </div>
+    <div class="depo-viewport">
+      <div class="depo-track"></div>
+    </div>
+    <div class="depo-nav">
+      <button class="depo-arrow depo-prev" aria-label="Anterior"><span class="icon" data-icon="chevron-left"></span></button>
+      <div class="depo-dots"></div>
+      <button class="depo-arrow depo-next" aria-label="Próximo"><span class="icon" data-icon="chevron-right"></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="cta-final">
+  <div class="glow"></div>
+  <div class="cta-final-inner">
+    <h2>Pronto para subir de<br>nível na <span class="gold-text">areia?</span></h2>
+    <p>Vagas limitadas. Fale com o Léo agora e garanta a sua.</p>
+    <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="cta cta-big"><span class="icon" data-icon="whatsapp"></span>Chamar no WhatsApp</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h4>Endereço</h4>
+      <div class="footer-addr">
+        <span class="icon" data-icon="map-pin"></span>
+        <p>Estrada Municipal André Stuchi, 100, Ratatória do Valflor — Embu-Guaçu/SP<br><span>BK Beach Club</span></p>
+      </div>
+    </div>
+    <div>
+      <h4>Redes Sociais</h4>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/leocesarfutevolei_10/" target="_blank" rel="noopener" class="footer-link"><span class="icon" data-icon="instagram"></span>@leocesarfutevolei_10</a>
+        <a href="https://www.instagram.com/bkbeachclub_/" target="_blank" rel="noopener" class="footer-link"><span class="icon" data-icon="instagram"></span>@bkbeachclub_</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="footer-link"><span class="icon" data-icon="whatsapp"></span>(11) 93953-4273</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <div class="footer-copy-inner">
+      <img src="images/symbol.png" alt="Léo César Futevôlei">
+      <span>© 2026 Léo César Futevôlei — BK Beach Club</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ===== INLINE SVG ICONS (lucide paths, no external lib) ===== */
+  var S = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
+  var ICONS = {
+    menu: S+'<line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>',
+    x: S+'<path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+    "badge-check": S+'<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>',
+    "calendar-days": S+'<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>',
+    globe: S+'<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
+    users: S+'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    user: S+'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    trophy: S+'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>',
+    sprout: S+'<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>',
+    medal: S+'<path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.5 15"/><path d="M11 12 5.12 2.2"/><path d="m13 12 5.88-9.8"/><path d="M8 7h8"/><circle cx="12" cy="17" r="5"/><path d="M12 18v-2h-.5"/></svg>',
+    "scroll-text": S+'<path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg>',
+    "map-pin": S+'<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>',
+    "chevron-left": S+'<path d="m15 18-6-6 6-6"/></svg>',
+    "chevron-right": S+'<path d="m9 18 6-6-6-6"/></svg>',
+    instagram: S+'<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'
+  };
+  document.querySelectorAll('[data-icon]').forEach(function(el){
+    var k = el.getAttribute('data-icon');
+    if (ICONS[k]) el.innerHTML = ICONS[k];
+  });
+
+  /* ===== HEADER SCROLL ===== */
+  var header = document.querySelector('.site-header');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }, { passive: true });
+
+  /* ===== MOBILE MENU ===== */
+  var menu = document.querySelector('.mobile-menu');
+  function closeMenu(){ menu.classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-menu-open]').forEach(function(b){ b.addEventListener('click', function(){ menu.classList.add('open'); document.body.style.overflow = 'hidden'; }); });
+  document.querySelectorAll('[data-menu-close]').forEach(function(b){ b.addEventListener('click', closeMenu); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  window.addEventListener('resize', function(){ if (window.innerWidth >= 860) closeMenu(); }, { passive: true });
+
+  /* ===== GALLERY CAROUSEL ===== */
+  var gTrack = document.querySelector('.gal-track');
+  var gDotsWrap = document.querySelector('.gal-dots');
+  var G_TOTAL = 12, G_PER = 3;
+  var gMax = Math.max(0, G_TOTAL - G_PER);
+  var gIdx = 0, gDots = [];
+  for (var i = 0; i <= gMax; i++){
+    var b = document.createElement('button');
+    b.className = 'gal-dot';
+    b.setAttribute('aria-label', 'slide ' + (i + 1));
+    (function(idx){ b.addEventListener('click', function(){ gIdx = idx; gRender(); }); })(i);
+    gDotsWrap.appendChild(b);
+    gDots.push(b);
+  }
+  function gRender(){
+    gTrack.style.transform = 'translateX(-' + (gIdx * (100 / G_PER)) + '%)';
+    gDots.forEach(function(d, i){ d.classList.toggle('active', i === gIdx); });
+  }
+  gRender();
+  setInterval(function(){ gIdx = gIdx >= gMax ? 0 : gIdx + 1; gRender(); }, 3000);
+
+  /* ===== DEPOIMENTOS CAROUSEL ===== */
+  var DEPO = [
+    { name:'João Paulo', age:'Aluno há 6 meses', quote:'Comecei do zero sem saber nada de futevôlei. Em três meses já estava jogando nas peladas do fim de semana com confiança. O Léo tem um jeito de ensinar que facilita tudo.' },
+    { name:'Camila Rocha', age:'Aluna particular', quote:'Treino particular com o Léo há seis meses. Minha técnica evoluiu muito e já estou pensando em entrar no primeiro campeonato. Recomendo demais.' },
+    { name:'Rafael Mendes', age:'Turma de iniciantes', quote:'Voltei a praticar esporte depois de anos parado. O Léo soube adaptar o treino para o meu ritmo e hoje não largo mais a areia.' },
+    { name:'Thiago Alves', age:'Aluno há 4 meses', quote:'O Léo é um professor que vive o que ensina. Dá pra sentir a experiência de competidor em cada treino. Evolui muito mais rápido do que esperava.' },
+    { name:'Marcos Ferreira', age:'Pai e aluno', quote:'Comecei com meu filho nas aulas de iniciantes e acabei me apaixonando pelo esporte também. Hoje treinamos juntos e é incrível. O Léo tem paciência e didática com todos os níveis.' },
+    { name:'Bruno Carvalho', age:'Preparação para campeonatos', quote:'Já tinha jogado futevôlei antes mas nunca com essa qualidade de instrução. O Léo identifica seus pontos fracos e trabalha neles de forma objetiva. Recomendo para quem quer competir.' },
+    { name:'Ana Beatriz', age:'Turma em grupo', quote:'As aulas em grupo são incríveis. Além de evoluir tecnicamente, fiz amizades e encontrei uma comunidade. O Léo cria um ambiente muito positivo na quadra.' },
+    { name:'Lucas Martins', age:'Aluno de campeonato', quote:'Em dois meses de treino já consegui disputar meu primeiro torneio. A preparação do Léo é completa: técnica, tática e mentalidade. Saí com resultado e muita confiança.' },
+    { name:'Felipe Souza', age:'Aluno competidor', quote:'O diferencial do Léo é que ele é atleta. Ele mostra na prática o que está ensinando. Isso muda tudo na hora de aprender. Minhas notas nos campeonatos subiram muito.' }
+  ];
+  var dTrack = document.querySelector('.depo-track');
+  var dDotsWrap = document.querySelector('.depo-dots');
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  dTrack.innerHTML = DEPO.map(function(t){
+    return '<div class="depo-cell"><div class="depo-card">' +
+      '<span class="depo-quote-mark">\u201C</span>' +
+      '<div class="depo-stars">\u2605\u2605\u2605\u2605\u2605</div>' +
+      '<p>' + esc(t.quote) + '</p>' +
+      '<div class="depo-foot"><div class="depo-name">' + esc(t.name) + '</div><div class="depo-age">' + esc(t.age) + '</div></div>' +
+      '</div></div>';
+  }).join('');
+  var dCells = Array.prototype.slice.call(dTrack.querySelectorAll('.depo-cell'));
+  var dPage = 0;
+  function dPerView(){ return window.innerWidth < 860 ? 1 : 3; }
+  function dPages(){ return Math.ceil(DEPO.length / dPerView()); }
+  function dRender(){
+    var pv = dPerView(), pages = dPages();
+    if (dPage >= pages) dPage = pages - 1;
+    dCells.forEach(function(c){ c.style.flexBasis = (100 / pv) + '%'; });
+    dTrack.style.transform = 'translateX(-' + (dPage * 100) + '%)';
+    dDotsWrap.innerHTML = '';
+    for (var i = 0; i < pages; i++){
+      var b = document.createElement('button');
+      b.className = 'depo-dot' + (i === dPage ? ' active' : '');
+      b.setAttribute('aria-label', 'página ' + (i + 1));
+      (function(idx){ b.addEventListener('click', function(){ dPage = idx; dRender(); }); })(i);
+      dDotsWrap.appendChild(b);
+    }
+  }
+  function dGo(dir){ var pages = dPages(); dPage = (dPage + dir + pages) % pages; dRender(); }
+  document.querySelector('.depo-prev').addEventListener('click', function(){ dGo(-1); });
+  document.querySelector('.depo-next').addEventListener('click', function(){ dGo(1); });
+  var dTX = null;
+  dTrack.addEventListener('touchstart', function(e){ dTX = e.changedTouches[0].clientX; }, { passive: true });
+  dTrack.addEventListener('touchend', function(e){
+    if (dTX == null) return;
+    var dx = e.changedTouches[0].clientX - dTX;
+    if (Math.abs(dx) > 40) dGo(dx < 0 ? 1 : -1);
+    dTX = null;
+  }, { passive: true });
+  var dResizeT;
+  window.addEventListener('resize', function(){ clearTimeout(dResizeT); dResizeT = setTimeout(dRender, 120); }, { passive: true });
+  dRender();
+
+  /* ===== SCROLL REVEAL ===== */
+  function reveal(secSel, itemSel){
+    var sec = document.querySelector(secSel);
+    if (!sec) return;
+    var items = sec.querySelectorAll(itemSel);
+    if (!('IntersectionObserver' in window)){ items.forEach(function(el){ el.classList.add('in'); }); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ items.forEach(function(el){ el.classList.add('in'); }); obs.disconnect(); }
+      });
+    }, { threshold: 0.15 });
+    obs.observe(sec);
+  }
+  reveal('#diferenciais', '.diff-item');
+  reveal('#conquistas', '.conq-card');
+})();
+</script>
+</body>
+</html>
