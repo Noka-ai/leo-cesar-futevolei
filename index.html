@@ -247,6 +247,17 @@
     .hero-inner,.sobre-inner,.servicos-inner,.dif-inner,.conq-inner,.depo-inner{padding-left:22px;padding-right:22px}
     .mm-link{font-size:30px}
   }
+  /* ===== MOBILE FIXES (<=768px) ===== */
+  @media (max-width:768px){
+    .hero-bg{background-position:center center}
+    .hero-overlay{background:linear-gradient(to bottom,rgba(10,10,10,.85) 0%,rgba(10,10,10,.6) 40%,rgba(10,10,10,.4) 70%,rgba(10,10,10,.3) 100%)}
+    .hero h1{white-space:normal !important;font-size:36px}
+    .cta .icon,.wa-btn .icon,.mm-cta .icon{width:18px !important;height:18px !important;flex:none}
+    .gal-stage{height:auto}
+    .gal-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;transition:none}
+    .gal-slide{flex:0 0 80%;height:420px;min-height:400px;scroll-snap-align:center}
+    .gal-slide-inner img{object-fit:cover}
+  }
 </style>
 </head>
 <body>
@@ -287,6 +298,13 @@
   </nav>
   <a href="https://wa.me/5511939534273?text=Ol%C3%A1%20L%C3%A9o!%20Quero%20come%C3%A7ar%20no%20futev%C3%B4lei." target="_blank" rel="noopener" class="mm-cta"><span class="icon" data-icon="whatsapp"></span>Chamar no WhatsApp</a>
 </div>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0a0908"/>
+    <text x="50" y="62" font-family="Oswald, sans-serif" font-size="34" font-weight="700" text-anchor="middle" fill="#c9a84c">LC</text>
+  </svg>
+</template>
 
 <!-- ===== HERO ===== -->
 <section id="top" class="hero">
@@ -405,16 +423,16 @@
     <div class="gal-track">
       <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-3.jpeg" alt=""></div></div>
       <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-1.jpeg" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-2.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-2.jpeg" alt=""></div></div>
       <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-5.jpeg" alt=""></div></div>
       <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-4.jpeg" alt=""></div></div>
       <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-6.jpeg" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-7.png" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-8.png" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-9.png" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-10.png" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-11.png" alt=""></div></div>
-      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-12.png" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-7.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-8.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-9.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-10.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-11.jpeg" alt=""></div></div>
+      <div class="gal-slide"><div class="gal-slide-inner"><img src="images/gallery-12.jpeg" alt=""></div></div>
     </div>
     <div class="gal-dots"></div>
   </div>
@@ -537,11 +555,12 @@
     gDots.push(b);
   }
   function gRender(){
-    gTrack.style.transform = 'translateX(-' + (gIdx * (100 / G_PER)) + '%)';
+    if (window.innerWidth > 768) gTrack.style.transform = 'translateX(-' + (gIdx * (100 / G_PER)) + '%)';
+    else gTrack.style.transform = 'none';
     gDots.forEach(function(d, i){ d.classList.toggle('active', i === gIdx); });
   }
   gRender();
-  setInterval(function(){ gIdx = gIdx >= gMax ? 0 : gIdx + 1; gRender(); }, 3000);
+  setInterval(function(){ if (window.innerWidth <= 768) return; gIdx = gIdx >= gMax ? 0 : gIdx + 1; gRender(); }, 3000);
 
   /* ===== DEPOIMENTOS CAROUSEL ===== */
   var DEPO = [
