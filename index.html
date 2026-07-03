@@ -253,6 +253,8 @@
     .hero-overlay{background:linear-gradient(to bottom,rgba(10,10,10,.85) 0%,rgba(10,10,10,.6) 40%,rgba(10,10,10,.4) 70%,rgba(10,10,10,.3) 100%)}
     .hero h1{white-space:normal !important;font-size:36px}
     .cta .icon,.wa-btn .icon,.mm-cta .icon{width:18px !important;height:18px !important;flex:none}
+    .cta,.wa-btn,.mm-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .cta-note{color:#a0a0a0;text-shadow:0 1px 4px rgba(0,0,0,.8)}
     .gal-stage{height:auto}
     .gal-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;transition:none}
     .gal-slide{flex:0 0 80%;height:420px;min-height:400px;scroll-snap-align:center}
@@ -555,12 +557,22 @@
     gDots.push(b);
   }
   function gRender(){
-    if (window.innerWidth > 768) gTrack.style.transform = 'translateX(-' + (gIdx * (100 / G_PER)) + '%)';
-    else gTrack.style.transform = 'none';
+    var isMobile = window.innerWidth <= 768;
+    if (!isMobile){
+      gTrack.style.transform = 'translateX(-' + (gIdx * (100 / G_PER)) + '%)';
+    } else {
+      gTrack.style.transform = 'none';
+      var slide = gTrack.children[gIdx];
+      if (slide) gTrack.scrollTo({ left: slide.offsetLeft - (gTrack.clientWidth - slide.clientWidth) / 2, behavior: 'smooth' });
+    }
     gDots.forEach(function(d, i){ d.classList.toggle('active', i === gIdx); });
   }
   gRender();
-  setInterval(function(){ if (window.innerWidth <= 768) return; gIdx = gIdx >= gMax ? 0 : gIdx + 1; gRender(); }, 3000);
+  setInterval(function(){
+    var max = window.innerWidth <= 768 ? (G_TOTAL - 1) : gMax;
+    gIdx = gIdx >= max ? 0 : gIdx + 1;
+    gRender();
+  }, 3000);
 
   /* ===== DEPOIMENTOS CAROUSEL ===== */
   var DEPO = [
